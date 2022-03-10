@@ -15,16 +15,17 @@ function calculate_slow(target, dmg_info)
         end
 
         if slow_config.chatprint then
-            target:ChatPrint("[B2R]: You have been stunned by a " .. dmg_info:GetInflictor():GetClass() .. " for " .. slow_config.slowtime .. " seconds")
+            target:ChatPrint("You have been stunned by a " .. dmg_info:GetInflictor():GetClass() .. " for " .. slow_config.slowtime .. " seconds")
         end
 
         if not b_is_stunned then return end
 
-        timer.Simple(slow_config.slowtime, function()
+        timer.Create("SLOW_" .. target:SteamID(), slow_config.slowtime, 0, function()
             target:SetRunSpeed(target:GetRunSpeed() * slow_config.deduct_run)
             target:SetWalkSpeed(target:GetWalkSpeed() * slow_config.deduct_walk)
             b_is_stunned = false
         end)
+   
     end
 end
 
